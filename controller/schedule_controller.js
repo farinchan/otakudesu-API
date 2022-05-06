@@ -21,7 +21,7 @@ module.exports = (req, res, dbResult) => {
                 .each(function () {
                     anime_name = $(this).find("a").text();
                     link = $(this).find("a").attr("href");
-                    id = $(this).find("a").attr("href").substring(`${helpers.url}/anime/`.length + 1);
+                    id = $(this).find("a").attr("href").substring(`${helpers.url}/anime/`.length);
                     animeList.push({ anime_name, id, link });
                 });
             scheduleList.push({ day, animeList });

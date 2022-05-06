@@ -6,10 +6,12 @@ module.exports = (req, res, routeController) => {
             console.log(err.message);
         } else if (typeof results[0] == "undefined") {
              res.json({
-                 nama : "inan"
+                 github : "https://github.com/farinchan/otakudesu-API",
+                 created_by : "Farin Developer",
+                 alert : "harap masukkan apikey, jika belum punya silahkan hubungi ke penyedia layanan, gratis"
              });
         } else {
-            routeController(req, res, dbResult)
+            routeController(req, res, results[0])
         }
 
     })

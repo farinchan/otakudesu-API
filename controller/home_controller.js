@@ -67,6 +67,11 @@ module.exports = (req, res, dbResult) => {
             home.on_going_anime = on_going_anime;
             home.complete_anime = complete_anime;
             res.status(200).json({
+                apikey_info: {
+                    apikey: dbResult.apikey,
+                    name: dbResult.nama,
+                    email: dbResult.email
+                },
                 status: "success",
                 baseUrl: helpers.url,
                 logo,

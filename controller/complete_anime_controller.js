@@ -30,7 +30,7 @@ module.exports = (req, res, dbResult) => {
                             title = $(this).find(".thumbz > h2").text();
                             thumb = $(this).find(".thumbz > img").attr("src");
                             link = $(this).attr("href");
-                            id = $(this).attr("href").substring(`${helpers.url}/anime/`.length + 1)
+                            id = $(this).attr("href").substring(`${helpers.url}/anime/`.length)
                         });
                     animeList.push({
                         link,
