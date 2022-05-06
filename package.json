@@ -1,0 +1,28 @@
+{
+  "name": "otakudesu-farindev",
+  "version": "1.0.0",
+  "description": "scrapper otakudesu - Rest API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/farinchan/otakudesu-API.git"
+  },
+  "author": "Fajri Rinaldi Chan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/farinchan/otakudesu-API/issues"
+  },
+  "homepage": "https://github.com/farinchan/otakudesu-API#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "cheerio": "^1.0.0-rc.10",
+    "express": "^4.18.1",
+    "mysql": "^2.18.1"
+  }
+}
