@@ -4,12 +4,21 @@ const helpers = require("../Helpers/url");
 
 //TODO: ANIME SEARCH
 module.exports = (req, res, dbResult) => {
+    const logPush = require("../Helpers/log_push")
+    logPush(dbResult)
     const query = req.params.query;
     const fullUrl = `${helpers.url}?s=${query}&post_type=anime`;
     Axios.get(fullUrl).then((response) => {
         const $ = cheerio.load(response.data);
         const element = $(".page");
-        let obj = {};
+        let obj = {
+            apikey_info: {
+                apikey: dbResult.apikey,
+                name: dbResult.nama,
+                email: dbResult.email,
+                msg_from_admin: dbResult.msg_admin
+            },
+        };
         let anime_list = [];
         (obj.status = "success"), (obj.baseUrl = fullUrl);
         let note = element.find(".rvad").find("h1").text()

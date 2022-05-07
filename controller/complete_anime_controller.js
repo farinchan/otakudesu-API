@@ -5,6 +5,8 @@ const helpers = require("../Helpers/url");
 //TODO:  Complete Anime List
 //FIXME: BAGIAN UNTUK PAGINATION HAL 1 DAN 43 KEATAS TIDAK BISA
 module.exports = (req, res, dbResult) => {
+    const logPush = require("../Helpers/log_push")
+    logPush(dbResult)
     const params = req.params.page;
     const page =
         typeof params === "undefined" ? "" : params === "1" ? "" : `page/${params}`;
@@ -43,6 +45,12 @@ module.exports = (req, res, dbResult) => {
                     });
                 });
             res.status(200).json({
+                apikey_info: {
+                    apikey: dbResult.apikey,
+                    name: dbResult.nama,
+                    email: dbResult.email,
+                    msg_from_admin : dbResult.msg_admin
+                },
                 status: "success",
                 baseUrl: fullUrl,
                 page: parseInt(page),

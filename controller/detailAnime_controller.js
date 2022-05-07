@@ -2,14 +2,23 @@ const cheerio = require("cheerio");
 const { default: Axios } = require("axios");
 const helpers = require("../Helpers/url");
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, dbResult) => {
+    const logPush = require("../Helpers/log_push")
+    logPush(dbResult)
     const id = req.params.id;
     const fullUrl = helpers.url + `/anime/${id}`;
     try {
         const response = await Axios.get(fullUrl);
         const $ = cheerio.load(response.data);
         const detailElement = $(".venser").find(".fotoanime");
-        let object = {};
+        let object = {
+            apikey_info: {
+                apikey: dbResult.apikey,
+                name: dbResult.nama,
+                email: dbResult.email,
+                msg_from_admin: dbResult.msg_admin
+            },
+        };
         let episode_list = [];
         object.thumb = detailElement.find("img").attr("src");
         object.anime_id = req.params.id;
@@ -130,7 +139,7 @@ module.exports = async (req, res) => {
                     ).attr("href")
                     : "-",
         };
-       
+
         object.batch_link = batch_link;
         res.json(object);
     } catch (err) {

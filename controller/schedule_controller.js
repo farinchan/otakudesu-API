@@ -4,6 +4,8 @@ const helpers = require("../Helpers/url");
 
 // TODO: Halaman Jadwal Rilis
 module.exports = (req, res, dbResult) => {
+    const logPush = require("../Helpers/log_push")
+    logPush(dbResult)
     Axios.get(helpers.url + "/jadwal-rilis").then((response) => {
         const $ = cheerio.load(response.data);
         const element = $(".kgjdwl321");
@@ -27,6 +29,12 @@ module.exports = (req, res, dbResult) => {
             scheduleList.push({ day, animeList });
         });
         res.json({
+            apikey_info: {
+                apikey: dbResult.apikey,
+                name: dbResult.nama,
+                email: dbResult.email,
+                msg_from_admin : dbResult.msg_admin
+            },
             title: "Jadwal-Rilis",
             note,
             scheduleList

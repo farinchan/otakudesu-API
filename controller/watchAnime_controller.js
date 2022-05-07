@@ -3,7 +3,9 @@ const { default: Axios } = require("axios");
 const helpers = require("../Helpers/url");
 const linkStream = require("../Helpers/get_link_stream")
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, dbResult) => {
+  const logPush = require("../Helpers/log_push")
+  logPush(dbResult)
   const id = req.params.id;
   const fullUrl = `${helpers.url}/${id}`;
 
@@ -11,7 +13,14 @@ module.exports = async (req, res) => {
     let response = await Axios.get(fullUrl)
     const $ = cheerio.load(response.data);
     const streamElement = $("#lightsVideo").find("#embed_holder");
-    const obj = {};
+    const obj = {
+      apikey_info: {
+        apikey: dbResult.apikey,
+        name: dbResult.nama,
+        email: dbResult.email,
+        msg_from_admin: dbResult.msg_admin
+      },
+    };
     obj.title = $(".venutama > h1").text();
     obj.baseUrl = fullUrl;
     obj.id = fullUrl.replace(helpers.url, "");

@@ -4,6 +4,8 @@ const helpers = require("../Helpers/url");
 
 //TODO: HOME PAGE
 module.exports = (req, res, dbResult) => {
+    const logPush = require("../Helpers/log_push")
+    logPush(dbResult)
     console.log(req.query.apikey);
     let home = {};
     let on_going_anime = [];
@@ -70,7 +72,8 @@ module.exports = (req, res, dbResult) => {
                 apikey_info: {
                     apikey: dbResult.apikey,
                     name: dbResult.nama,
-                    email: dbResult.email
+                    email: dbResult.email,
+                    msg_from_admin : dbResult.msg_admin
                 },
                 status: "success",
                 baseUrl: helpers.url,

@@ -4,6 +4,8 @@ const helpers = require("../Helpers/url");
 
 //TODO: On Going Anime List
 module.exports = (req, res, dbResult) => {
+    const logPush = require("../Helpers/log_push")
+    logPush(dbResult)
     const params = req.params.page
     const page = typeof params === "undefined" ? "" : params === "1" ? "" : `page/${params}`;
     const fullUrl = `${helpers.url}/ongoing-anime/${page}`;

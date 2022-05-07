@@ -5,6 +5,8 @@ const helpers = require("../Helpers/url");
 
 //TODO: ANIME BY GENRE
 module.exports = (req, res, dbResult) => {
+    const logPush = require("../Helpers/log_push")
+    logPush(dbResult)
     const pageNumber = req.params.pageNumber;
     const genreId = req.params.genreId;
     const fullUrl = helpers.url + `/genres/${genreId}/page/${pageNumber}`;
@@ -43,6 +45,12 @@ module.exports = (req, res, dbResult) => {
                 animeList.push(object);
             });
             res.send({
+                apikey_info: {
+                    apikey: dbResult.apikey,
+                    name: dbResult.nama,
+                    email: dbResult.email,
+                    msg_from_admin : dbResult.msg_admin
+                },
                 status: "success",
                 baseUrl: fullUrl,
                 note,
